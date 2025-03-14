@@ -30,6 +30,9 @@ exports.createNote = async (req, res, next) => {
 exports.updateNote = async (req, res, next) => {
     try {
         const note = await noteService.updateNote(req.user.id, req.params.id, req.body);
+        if (!note) {
+            return res.status(404).json({ message: 'Note not found' });
+        }
         res.status(200).json(note);
     } catch (error) {
         next(error);
@@ -47,7 +50,10 @@ exports.deleteNote = async (req, res, next) => {
 
 exports.shareNote = async (req, res, next) => {
     try {
-        await noteService.shareNote(req.user.id, req.params.id, req.body.sharedWith);
+        const note = await noteService.shareNote(req.user.id, req.params.id, req.body.sharedWith);
+        if (!note) {
+            return res.status(404).json({ message: 'Note not found' });
+        }
         res.status(200).json({ message: 'Note shared successfully' });
     } catch (error) {
         next(error);

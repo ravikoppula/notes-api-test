@@ -14,7 +14,9 @@ exports.createNote = async (userId, noteData) => {
 };
 
 exports.updateNote = async (userId, noteId, noteData) => {
-    return await Note.findOneAndUpdate({ _id: noteId, owner: userId }, noteData, { new: true });
+    const note = await Note.findOneAndUpdate({ _id: noteId, owner: userId }, noteData, { new: true });
+    if (!note) throw new Error('Note not found');
+    return note;
 };
 
 exports.deleteNote = async (userId, noteId) => {
@@ -26,6 +28,7 @@ exports.shareNote = async (userId, noteId, sharedWith) => {
     if (!note) throw new Error('Note not found');
     note.sharedWith.push(sharedWith);
     await note.save();
+    return note;
 };
 
 exports.searchNotes = async (userId, query) => {
