@@ -12,6 +12,8 @@ router.use(authMiddleware.protect);
  *   get:
  *     summary: Get a list of all notes for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of notes
@@ -26,6 +28,8 @@ router.get('/', noteController.getNotes);
  *   get:
  *     summary: Get a note by ID for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -49,6 +53,8 @@ router.get('/:id', noteController.getNoteById);
  *   post:
  *     summary: Create a new note for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -74,6 +80,8 @@ router.post('/', noteController.createNote);
  *   put:
  *     summary: Update an existing note by ID for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -108,6 +116,8 @@ router.put('/:id', noteController.updateNote);
  *   delete:
  *     summary: Delete a note by ID for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -131,6 +141,8 @@ router.delete('/:id', noteController.deleteNote);
  *   post:
  *     summary: Share a note with another user for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -159,10 +171,12 @@ router.post('/:id/share', noteController.shareNote);
 
 /**
  * @swagger
- * /search:
+ * /notes/search:
  *   get:
  *     summary: Search for notes based on keywords for the authenticated user
  *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: q
