@@ -5,12 +5,7 @@ const User = require('../models/userModel');
 
 describe('Auth API', () => {
     beforeAll(async () => {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        });
+        await mongoose.connect(process.env.MONGO_URI);
     });
 
     afterAll(async () => {
