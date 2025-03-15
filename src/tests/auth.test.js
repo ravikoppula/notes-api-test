@@ -21,6 +21,7 @@ describe('Auth API', () => {
             .post('/api/auth/signup')
             .send({
                 username: 'testuser',
+                email: 'testuser@gmail.com',
                 password: 'password123'
             });
         expect(res.statusCode).toEqual(201);
@@ -32,6 +33,7 @@ describe('Auth API', () => {
             .post('/api/auth/signup')
             .send({
                 username: 'testuser',
+                email: 'testuser@gmail.com',
                 password: 'password123'
             });
 

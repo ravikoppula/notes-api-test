@@ -14,6 +14,7 @@ describe('Note API', () => {
             .post('/api/auth/signup')
             .send({
                 username: 'testuser',
+                email: 'testuser@example.com',
                 password: 'password123'
             });
 
@@ -96,5 +97,24 @@ describe('Note API', () => {
             .delete(`/api/notes/${note.body._id}`)
             .set('Authorization', `Bearer ${token}`);
         expect(res.statusCode).toEqual(204);
+    });
+
+    it('should share a note with another user', async () => {
+        const note = await request(app)
+            .post('/api/notes')
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                title: 'Test Note',
+                content: 'This is a test note'
+            });
+
+        const res = await request(app)
+            .post(`/api/notes/${note.body._id}/share`)
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                sharedWith: 'shareduser@example.com'
+            });
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.message).toEqual('Note shared successfully');
     });
 });

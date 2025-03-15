@@ -1,14 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const commonSchema = require("./commonSchema");
 
-const noteSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    content: { type: String, required: true },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    sharedWith: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-}, { timestamps: true });
+const NoteSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Reference to User
+  folderId: { type: mongoose.Schema.Types.ObjectId, ref: "Folder", required: false }, // Reference to Folder
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  tags: { type: [String], default: [] }, // Array of tags
+  isPinned: { type: Boolean, default: false },
+  isArchived: { type: Boolean, default: false },
+  isDeleted: { type: Boolean, default: false },
+  color: { type: String, default: "#ffffff" }, // Default white
+  attachments: { type: [String], default: [] }, // Array of file URLs
+  reminderAt: { type: Date, default: null }, // Optional reminder
+  sharedWith: [{ type: String }], // Array of emails
+  ...commonSchema.timestamps
+});
 
 noteSchema.index({ title: 'text', content: 'text' });
 
-const Note = mongoose.model('Note', noteSchema);
-
-module.exports = Note;
+module.exports = mongoose.model("Note", NoteSchema);
