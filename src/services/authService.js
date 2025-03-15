@@ -8,7 +8,7 @@ exports.signup = async (userData) => {
 
 exports.login = async ({ username, password }) => {
     const user = await User.findOne({ username });
-    if (!user || !(await user.correctPassword(password, user.password))) {
+    if (!user || !(await user.correctPassword(password, user.passwordHash))) {
         throw new Error('Incorrect username or password');
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

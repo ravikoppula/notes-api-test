@@ -17,6 +17,6 @@ const NoteSchema = new mongoose.Schema({
   ...commonSchema.timestamps
 });
 
-noteSchema.index({ title: 'text', content: 'text' });
+NoteSchema.index({ title: 'text', content: 'text' });
 
 module.exports = mongoose.model("Note", NoteSchema);

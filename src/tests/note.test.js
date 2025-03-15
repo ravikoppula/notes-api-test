@@ -42,7 +42,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Test Note',
-                content: 'This is a test note'
+                content: 'This is a test note',
+                folderId: 'folder123'
             });
         expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('_id');
@@ -54,7 +55,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Test Note',
-                content: 'This is a test note'
+                content: 'This is a test note',
+                folderId: 'folder123'
             });
 
         const res = await request(app)
@@ -70,7 +72,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Test Note',
-                content: 'This is a test note'
+                content: 'This is a test note',
+                folderId: 'folder123'
             });
 
         const res = await request(app)
@@ -78,7 +81,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Updated Note',
-                content: 'This is an updated test note'
+                content: 'This is an updated test note',
+                folderId: 'folder123'
             });
         expect(res.statusCode).toEqual(200);
         expect(res.body.title).toEqual('Updated Note');
@@ -90,7 +94,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Test Note',
-                content: 'This is a test note'
+                content: 'This is a test note',
+                folderId: 'folder123'
             });
 
         const res = await request(app)
@@ -105,7 +110,8 @@ describe('Note API', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'Test Note',
-                content: 'This is a test note'
+                content: 'This is a test note',
+                folderId: 'folder123'
             });
 
         const res = await request(app)
