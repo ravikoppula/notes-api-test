@@ -171,13 +171,19 @@ router.post('/:id/share', noteController.shareNote);
 
 /**
  * @swagger
- * /notes/search:
+ * /notes/search/{userId}:
  *   get:
  *     summary: Search for notes based on keywords for the authenticated user
  *     tags: [Notes]
  *     security:
  *       - bearerAuth: []
  *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ID
  *       - in: query
  *         name: q
  *         schema:
@@ -190,6 +196,6 @@ router.post('/:id/share', noteController.shareNote);
  *       401:
  *         description: Unauthorized
  */
-router.get('/search', noteController.searchNotes);
+router.get('/search/:userId', noteController.searchNotes);
 
 module.exports = router;

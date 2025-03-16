@@ -15,5 +15,6 @@ exports.protect = async (req, res, next) => {
         return res.status(401).json({ message: 'The user belonging to this token does no longer exist.' });
     }
     req.user = currentUser;
+    req.userId = decoded.id;
     next();
 };
