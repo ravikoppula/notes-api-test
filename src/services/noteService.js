@@ -38,21 +38,44 @@ exports.shareNote = async (userId, noteId, sharedWith) => {
     return note;
 };
  
+// working 
+// exports.searchNotes = async (userId, query) => {
+//     try {
+//         const notes = await Note.find({
+//             userId: userId,
+//             $or: [
+//                 { title: { $regex: `\\b${query}\\b`, $options: 'i' } },
+//                 { content: { $regex: `\\b${query}\\b`, $options: 'i' } }
+//             ]
+//         });
+//         return notes;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
 
-exports.searchNotes = async (userId, query) => {
+exports.searchNotes = async (userId, query = '') => {
     try {
-        const notes = await Note.find({
-            userId: userId,
-            $or: [
-                { title: { $regex: `\\b${query}\\b`, $options: 'i' } },
-                { content: { $regex: `\\b${query}\\b`, $options: 'i' } }
-            ]
-        });
+        let notes;
+        if (!query) {
+            // If the query is empty, return all notes for the user
+            notes = await Note.find({ userId: userId });
+        } else {
+            // Otherwise, perform the search with the regex
+            notes = await Note.find({
+                userId: userId,
+                $or: [
+                    { title: { $regex: query, $options: 'i' } },
+                    { content: { $regex: query, $options: 'i' } }
+                ]
+            });
+        }
         return notes;
     } catch (error) {
         throw error;
     }
 };
+
 
 // exports.searchNotes = async (userId, query) => {
 //     try {

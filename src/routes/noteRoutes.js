@@ -1,6 +1,8 @@
 const express = require('express');
 const noteController = require('../controllers/noteController');
 const authMiddleware = require('../middlewares/authMiddleware');
+ 
+
 
 const router = express.Router();
 
@@ -188,7 +190,7 @@ router.post('/:id/share', noteController.shareNote);
  *         name: q
  *         schema:
  *           type: string
- *         required: true
+ *         required: false
  *         description: Search query
  *     responses:
  *       200:
@@ -196,6 +198,15 @@ router.post('/:id/share', noteController.shareNote);
  *       401:
  *         description: Unauthorized
  */
+
 router.get('/search/:userId', noteController.searchNotes);
+
+// router.get('/notes/search/:userId', [
+//     param('userId').isString().notEmpty(),
+//     query('q').optional().isString()
+// ], noteController.searchNotes);
+
+
+
 
 module.exports = router;

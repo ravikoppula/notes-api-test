@@ -62,7 +62,7 @@ exports.shareNote = async (req, res, next) => {
 
 exports.searchNotes = async (req, res, next) => {
     try {
-        const notes = await noteService.searchNotes(req.user.id, req.query.q);
+        const notes = await noteService.searchNotes(req.user.id, req.query.q || '');
         res.status(200).json(notes);
     } catch (error) {
         next(error);
