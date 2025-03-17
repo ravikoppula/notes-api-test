@@ -61,6 +61,7 @@ app.use(hpp());
 app.use(cors({
     origin: [
         'http://localhost:3000', 
+        'https://localhost:3443',
         'https://notes-api-test-t902.onrender.com'
     ],
     credentials: true // Allow credentials to be sent with requests

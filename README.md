@@ -1,18 +1,15 @@
+# Notes API
 
 ## Overview
 
-Notes API is a scalable RESTful API for managing notes. It allows users to create, read, update, delete, and share notes. The API is built using Node.js, Express, and MongoDB.
+Notes API is a secure and scalable RESTful API for managing notes. It allows users to create, read, update, delete, and share notes. The API is built using Node.js, Express, and MongoDB.
 
 ## Choice of Framework/DB/3rd Party Tools
 
 - **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine, chosen for its performance and scalability.
-
 - **Express**: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
-
 - **MongoDB**: A NoSQL database chosen for its flexibility and scalability in handling unstructured data.
-
 - **Mongoose**: An ODM (Object Data Modeling) library for MongoDB and Node.js, providing a straightforward, schema-based solution to model application data.
-
 - **JWT (jsonwebtoken)**: Used for secure authentication and authorization.
 - **bcryptjs**: Used for hashing passwords.
 - **Helmet**: Helps secure Express apps by setting various HTTP headers.
@@ -28,6 +25,7 @@ Notes API is a scalable RESTful API for managing notes. It allows users to creat
 
 - Node.js (v14 or higher)
 - MongoDB (local or cloud instance)
+- OpenSSL (for generating self-signed certificates)
 
 ### Installation
 
@@ -40,7 +38,7 @@ Notes API is a scalable RESTful API for managing notes. It allows users to creat
 2. Install dependencies:
     ```sh
     npm install
-
+    ```
 
 3. Create a `.env` file in the root directory and add the following environment variables:
     ```env
@@ -52,6 +50,13 @@ Notes API is a scalable RESTful API for managing notes. It allows users to creat
     JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDQ0NmY4NTk1YTgwNzljMDk0N2UwOSIsImlhdCI6MTc0MTk2NzQwNiwiZXhwIjoxNzQ5NzQzNDA2fQ.QG3uHl6axr2kP5_wRJ7yWsJaQiXDzZ8nQFBmEbXEi4I
     JWT_EXPIRES_IN=90d
     PORT=3000
+    HTTPS_PORT=3443
+    ```
+
+4. Generate a self-signed certificate:
+    ```sh
+    mkdir certs
+    openssl req -nodes -new -x509 -keyout certs/key.pem -out certs/cert.pem -days 365
     ```
 
 ### Running the Application
@@ -73,10 +78,27 @@ Notes API is a scalable RESTful API for managing notes. It allows users to creat
     npm test
     ```
 
+## Deployment
+
+You can deploy the application on a hosting platform of your choice. For example, you can use Render for free hosting for small apps.
+
+### Deploy on Render
+
+1. Create a new web service on Render.
+2. Connect your GitHub repository.
+3. Set the build and start commands:
+    - Build Command: `npm install`
+    - Start Command: `npm start`
+4. Add the environment variables from your `.env` file in the Render dashboard.
+5. Deploy the service.
+
+## API Documentation
+
+The API documentation is available via Swagger. You can access it at `/api-docs` endpoint once the server is running.
+
 ### Swagger Page
 
 `http://localhost:3000/api-docs/`
-
 
 ## Postman Collection
 
