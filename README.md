@@ -1,15 +1,18 @@
-# Notes API
 
 ## Overview
 
-Notes API is a secure and scalable RESTful API for managing notes. It allows users to create, read, update, delete, and share notes. The API is built using Node.js, Express, and MongoDB.
+Notes API is a scalable RESTful API for managing notes. It allows users to create, read, update, delete, and share notes. The API is built using Node.js, Express, and MongoDB.
 
 ## Choice of Framework/DB/3rd Party Tools
 
 - **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine, chosen for its performance and scalability.
+
 - **Express**: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+
 - **MongoDB**: A NoSQL database chosen for its flexibility and scalability in handling unstructured data.
+
 - **Mongoose**: An ODM (Object Data Modeling) library for MongoDB and Node.js, providing a straightforward, schema-based solution to model application data.
+
 - **JWT (jsonwebtoken)**: Used for secure authentication and authorization.
 - **bcryptjs**: Used for hashing passwords.
 - **Helmet**: Helps secure Express apps by setting various HTTP headers.
@@ -30,14 +33,14 @@ Notes API is a secure and scalable RESTful API for managing notes. It allows use
 
 1. Clone the repository:
     ```sh
-    git clone <repository-url>
+    git clone <https://github.com/ravikoppula/notes-api-test.git>
     cd notes-api
     ```
 
 2. Install dependencies:
     ```sh
     npm install
-    ```
+
 
 3. Create a `.env` file in the root directory and add the following environment variables:
     ```env
@@ -45,8 +48,8 @@ Notes API is a secure and scalable RESTful API for managing notes. It allows use
     TEST_USERNAME='testuser'
     TEST_EMAIL='testuser@gmail.com'
     TEST_PASSWORD='123'
-    MONGO_URI=<your-mongodb-uri>
-    JWT_SECRET=<your-jwt-secret>
+    MONGO_URI=mongodb+srv://ravikoppulaca:HaQRGqVBmHNSrluw@notes-api-cluster.gkqb5.mongodb.net/UserNotes?retryWrites=true&w=majority
+    JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDQ0NmY4NTk1YTgwNzljMDk0N2UwOSIsImlhdCI6MTc0MTk2NzQwNiwiZXhwIjoxNzQ5NzQzNDA2fQ.QG3uHl6axr2kP5_wRJ7yWsJaQiXDzZ8nQFBmEbXEi4I
     JWT_EXPIRES_IN=90d
     PORT=3000
     ```
@@ -70,27 +73,10 @@ Notes API is a secure and scalable RESTful API for managing notes. It allows use
     npm test
     ```
 
-## Deployment
-
-You can deploy the application on a hosting platform of your choice. For example, you can use Render for free hosting for small apps.
-
-### Deploy on Render
-
-1. Create a new web service on Render.
-2. Connect your GitHub repository.
-3. Set the build and start commands:
-    - Build Command: `npm install`
-    - Start Command: `npm start`
-4. Add the environment variables from your `.env` file in the Render dashboard.
-5. Deploy the service.
-
-## API Documentation
-
-The API documentation is available via Swagger. You can access it at `/api-docs` endpoint once the server is running.
-
 ### Swagger Page
 
-If applicable, please provide the link to your Swagger page.
+`http://localhost:3000/api-docs/`
+
 
 ## Postman Collection
 
@@ -189,7 +175,154 @@ You can import the following Postman collection to test the APIs:
         }
       },
       "response": []
+    },
+    {
+      "name": "Get Note By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your-token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/notes/{id}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notes",
+            "{id}"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "<note-id>"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Note",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your-token>",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Updated Note\",\n    \"content\": \"This is an updated test note\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/notes/{id}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notes",
+            "{id}"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "<note-id>"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Note",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your-token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/notes/{id}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notes",
+            "{id}"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "<note-id>"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Notes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <your-token>",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/notes/search/{userId}?q={query}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "notes",
+            "search",
+            "{userId}"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "<search-query>"
+            }
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "<user-id>"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
-```

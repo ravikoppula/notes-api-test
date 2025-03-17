@@ -60,8 +60,10 @@ app.use(hpp());
 // Update CORS configuration
 app.use(cors({
     origin: [
-        'http://localhost:3000',  'https://notes-api-test-t902.onrender.com'
-    ]
+        'http://localhost:3000', 
+        'https://notes-api-test-t902.onrender.com'
+    ],
+    credentials: true // Allow credentials to be sent with requests
 }));
 
 app.use('/api', rateLimiter); // Apply rate limiter to all routes starting with /api 
