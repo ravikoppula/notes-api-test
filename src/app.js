@@ -10,6 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const authRoutes = require('./routes/authRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 const errorHandler = require('./middlewares/errorHandler');
+
 const rateLimiter = require('./middlewares/rateLimiter');
 
 const app = express();
@@ -56,7 +57,8 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 app.use(cors());
-app.use('/api', rateLimiter);
+
+app.use('/api', rateLimiter); // Apply rate limiter to all routes starting with /api 
 
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
