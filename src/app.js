@@ -56,7 +56,13 @@ app.use(express.json());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
-app.use(cors());
+
+// Update CORS configuration
+app.use(cors({
+    origin: [
+        'http://localhost:3000',  'https://notes-api-test-t902.onrender.com'
+    ]
+}));
 
 app.use('/api', rateLimiter); // Apply rate limiter to all routes starting with /api 
 
