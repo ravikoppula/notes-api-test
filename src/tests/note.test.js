@@ -1,8 +1,6 @@
-//console.log('note.test.js is loading');
-
 jest.setTimeout(30000);
 
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 const request = require('supertest');
 const app = require('../app');
 const mongoose = require('mongoose');
@@ -13,9 +11,10 @@ const User = require('../models/userModel');
 const Note = require('../models/noteModel');
 const { getToken } = require('./auth.test'); // Import the function to get the token
 
-// console.log(__dirname);
 const tokenFilePath = path.join(__dirname, 'token.txt');
-const username = 'testuser'; // Define the username
+const username = process.env.TEST_USERNAME; // Read username from .env file
+const email = process.env.TEST_EMAIL; // Read email from .env file
+const password = process.env.TEST_PASSWORD; // Read password from .env file
 
 describe('Note API', () => {
     let token;
@@ -30,21 +29,19 @@ describe('Note API', () => {
             .post('/api/auth/signup')
             .send({
                 username,
-                email: 'testuser@example.com',
-                password: '123'
+                email,
+                password
             });
 
         const res = await request(app)
             .post('/api/auth/login')
             .send({
                 username,
-                password: '123'
+                password
             });
 
         token = res.body.token; // Get the token from the response
-       // console.log('Writing token to file:', tokenFilePath);
         fs.writeFileSync(tokenFilePath, JSON.stringify({ username, token })); // Write username and token to file in JSON format
-        //console.log('Token written to file:', tokenFilePath);
     });
 
     beforeEach(() => {

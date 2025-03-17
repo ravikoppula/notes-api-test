@@ -5,10 +5,13 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const User = require('../models/userModel');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config(); // Load environment variables from .env file
 
 const tokenFilePath = path.join(__dirname, 'token.txt');
 let token; // Declare a variable to store the token
-const username = 'testuser'; // Declare a global variable for the username
+const username = process.env.TEST_USERNAME; // Read username from .env file
+const email = process.env.TEST_EMAIL; // Read email from .env file
+const password = process.env.TEST_PASSWORD; // Read password from .env file
 
 describe('Auth API', () => {
     let mongoServer;
@@ -35,13 +38,13 @@ describe('Auth API', () => {
             .post('/api/auth/signup')
             .send({
                 username,
-                email: 'testuser@gmail.com',
-                password: '123'
+                email,
+                password
             });
         expect(res.statusCode).toEqual(201);
         expect(res.body).toHaveProperty('_id');
         expect(res.body).toHaveProperty('username', username);
-        expect(res.body).toHaveProperty('email', 'testuser@gmail.com');
+        expect(res.body).toHaveProperty('email', email);
     });
 
     it('should log in an existing user', async () => {
@@ -49,24 +52,21 @@ describe('Auth API', () => {
             .post('/api/auth/signup')
             .send({
                 username,
-                email: 'testuser@gmail.com',
-                password: '123'
+                email,
+                password
             });
 
         const res = await request(app)
             .post('/api/auth/login')
             .send({
                 username,
-                password: '123'
+                password
             });
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty('token');
         expect(res.body.token).toBeTruthy();
         token = res.body.token; // Store the token
-        //console.log('Writing token to file:', tokenFilePath);
         fs.writeFileSync(tokenFilePath, JSON.stringify({ username, token })); // Write username and token to file in JSON format
-        //console.log('Token written to file:', tokenFilePath);
-        //console.log('Token:', res.body.token); // Log the token to the console
     });
 });
 
