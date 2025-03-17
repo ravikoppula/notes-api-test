@@ -1,8 +1,8 @@
+
+
 const express = require('express');
 const noteController = require('../controllers/noteController');
 const authMiddleware = require('../middlewares/authMiddleware');
- 
-
 
 const router = express.Router();
 
@@ -200,13 +200,5 @@ router.post('/:id/share', noteController.shareNote);
  */
 
 router.get('/search/:userId', noteController.searchNotes);
-
-// router.get('/notes/search/:userId', [
-//     param('userId').isString().notEmpty(),
-//     query('q').optional().isString()
-// ], noteController.searchNotes);
-
-
-
-
+ 
 module.exports = router;
