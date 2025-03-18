@@ -52,13 +52,7 @@ Notes API is a secure and scalable RESTful API for managing notes. It allows use
     PORT=3000
     HTTPS_PORT=3443
     ```
-
-4. Generate a self-signed certificate:
-    ```sh
-    mkdir certs
-    openssl req -nodes -new -x509 -keyout certs/key.pem -out certs/cert.pem -days 365
-    ```
-
+ 
 ### Running the Application
 
 1. Start the server:
@@ -78,19 +72,9 @@ Notes API is a secure and scalable RESTful API for managing notes. It allows use
     npm test
     ```
 
-## Deployment
+## On Render use the cloude link to access  
 
-You can deploy the application on a hosting platform of your choice. For example, you can use Render for free hosting for small apps.
-
-### Deploy on Render
-
-1. Create a new web service on Render.
-2. Connect your GitHub repository.
-3. Set the build and start commands:
-    - Build Command: `npm install`
-    - Start Command: `npm start`
-4. Add the environment variables from your `.env` file in the Render dashboard.
-5. Deploy the service.
+`https://notes-api-test-t902.onrender.com/api-docs/`
 
 ## API Documentation
 
@@ -98,7 +82,9 @@ The API documentation is available via Swagger. You can access it at `/api-docs`
 
 ### Swagger Page
 
-`http://localhost:3000/api-docs/`
+`http://localhost:3000/api-docs/` 
+(or) 
+`https://localhost:3443/api-docs/`
 
 ## Postman Collection
 
